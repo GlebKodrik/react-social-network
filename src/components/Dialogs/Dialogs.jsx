@@ -1,21 +1,28 @@
 import React from 'react';
-import s from './Dialogs.module.css'
+import s from './Dialogs.module.css';
+import { NavLink } from 'react-router-dom';
+
+const DialogItem = (props) => {
+    return <div className={`${s.dialogItemMesseges} ${s.activeMesseges}`}><NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink></div>
+}
+const Message = (props) => {
+    return <div className={s.dialogItemMesseges}>{props.text}</div>
+}
 const Dialogs = (props) => {
-    return(
+    return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
-                <div className={s.dialogItemMesseges}>Вася</div>
-                <div className={`${s.dialogItemMesseges} ${s.activeMesseges}`}>Глеб</div>
-                <div className={s.dialogItemMesseges}>Михаил</div>
-                <div className={s.dialogItemMesseges}>Андрей</div>
-                <div className={s.dialogItemMesseges}>Ирина</div>
-                <div className={s.dialogItemMesseges}>Катя</div>      
+                <DialogItem id="1" name="Глеб"/>
+                <DialogItem id="2" name="Вася"/>
+                <DialogItem id="3" name="Ваня"/>
+                <DialogItem id="4" name="Михаил"/>
+                <DialogItem id="5" name="Камат"/>
+                <DialogItem id="6" name="Анатолий"/>
             </div>
             <div className={s.dialogsMesseges}>
-                <div className={s.dialogItemMesseges}>Lorem ipsum dolor sit amet.</div>
-                <div className={s.dialogItemMesseges}>Lorem ipsum dolor sit amet.</div>
-                <div className={s.dialogItemMesseges}>Lorem ipsum dolor sit amet consectetur.</div>
-                <div className={s.dialogItemMesseges}>Lorem ipsum dolor sit.</div>
+                <Message text="Првиет меня зовут Глеб"/>
+                <Message text="Ну ты можешь пойти нахуй"/>
+                <Message text="Толя мне похуй на тебя"/>
             </div>
         </div>
     )

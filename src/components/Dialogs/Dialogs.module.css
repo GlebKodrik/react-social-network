@@ -3,6 +3,6 @@
     grid-template-columns: 2fr 10fr;
 }
 
-.dialogsItem .activeMesseges {
+.dialogsItem .activeMesseges a {
     color: red;
 }
