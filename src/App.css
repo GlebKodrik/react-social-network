@@ -8,21 +8,17 @@
 
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
-
+    grid-gap: 1em;
 }
-
-.header{
-    grid-area: h;
-    background-color: green;
+.like{
+    color: #00FF03;
+    font-size: 24px;
 }
-.header img{
-    width: 30px;
+.dislike{
+    color: #CC0000;
+    font-size: 24ёpx;
 }
-.nav{
-    grid-area: n;
-    background-color: burlywood;
-}
-.content{
+.app-wrapper-content{
     grid-area: c;
-    background-color: cornflowerblue;
+    background-color: aqua;
 }
