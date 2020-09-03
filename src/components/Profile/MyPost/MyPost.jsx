@@ -2,6 +2,11 @@ import React from 'react';
 import s from './MyPost.module.css';
 import Post from './Post/Post';
 
+let postsData = [
+    {likeCout:"57", dislikeCout:"12", date:"31.08.2020", message:"Наконец я начал учить реакт"},
+    {likeCout:"10432", dislikeCout:"1", date:"22.06.2000", message:"Толя кусок тупого дерьма"}
+];
+
 const MyPost = () => {
     return (
         <div className={s.posts}>
@@ -14,8 +19,8 @@ const MyPost = () => {
                 New post
             </div>
             <div>
-                <Post like="57" dislike="12" date="31.08.2020" message="Наконец я начал учить реакт"/>
-                <Post like="10432" dislike="1" date="22.06.2000" message="Толя кусок тупого дерьма"/>
+                <Post likeCout={postsData[0].likeCout} dislikeCout={postsData[0].dislikeCout} date={postsData[0].date} message={postsData[0].message}/>
+                <Post likeCout={postsData[1].likeCout} dislikeCout={postsData[1].dislikeCout} date={postsData[1].date} message={postsData[1].message}/>
             </div>
         </div>
     )

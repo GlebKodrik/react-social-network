@@ -11,9 +11,9 @@ const Post = (props) => {
             {props.date} , {props.message};
             <div className={s.appraisal}>
                 <img src={like} alt=""/>
-                <span className="like">{props.like} Like</span>
+                <span className={s.likeCout}>{props.likeCout} Like</span>
                 <img src={dislike} alt=""/>
-                <span className="dislike"> {props.dislike} Dislike</span>
+                <span className={s.dislikeCout}> {props.dislikeCout} Dislike</span>
             </div>
         </div>
     )
