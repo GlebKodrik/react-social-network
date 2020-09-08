@@ -1,8 +1,18 @@
 .dialogs{
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-columns: 5fr 10fr;
+    align-items: start;
 }
-
-.dialogsItem .activeMesseges a {
-    color: red;
+.dialogItemWrapper{
+    display: grid;
+    grid-template-columns: 45px 4fr;
+    align-items: center;
+}
+.dialogItemMasseges{
+    padding: 5px;
+}
+.dialogItemWrapper img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
