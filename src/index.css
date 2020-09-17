@@ -65,3 +65,9 @@ table {
   border: 0;
   border-collapse: collapse;
 }
+
+.avatarImg{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}

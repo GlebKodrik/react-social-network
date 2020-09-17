@@ -7,16 +7,19 @@ const MyPost = (props) => {
 
     let postsArray = 
         props.postsData.map(p => <Post likeCout={p.likeCout} dislikeCout={p.dislikeCout} date={p.date} message={p.message}/>);
+    let newPostElement = React.createRef();
+    
+    let addPost = () =>{
+        let text = newPostElement.current.value;
+        alert(text);
+    }
 
     return (
         <div className={s.posts}>
             <h3>My post</h3>
-            <textarea></textarea>
+            <textarea ref={newPostElement}></textarea>
             <div>
-                <button>Добавить пост</button>
-            </div>
-            <div>
-                New post
+                <button onClick={addPost}>Добавить пост</button>
             </div>
             <div>
                 {postsArray}

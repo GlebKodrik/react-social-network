@@ -6,7 +6,7 @@ const DialogItem = (props) => {
 
     return (
         <div className={`${s.dialogItemMasseges} ${s.dialogItemWrapper}`}>
-            <img src={props.src} alt=""/>
+            <img className="avatarImg" src={props.src} alt=""/>
             <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>
         </div>
     )}

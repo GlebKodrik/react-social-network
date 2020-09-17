@@ -1,4 +1,4 @@
-.nav{
+.sidebar{
     grid-area: n;
     background-color: burlywood;
     padding: 35px;
@@ -9,4 +9,26 @@
 }
 .item a.activeLink{
     color: Gold;
+}
+.nav {
+    margin-bottom: 80px;
+}
+.friendsTitle{
+    text-align: center;
+    color: green;
+    margin-bottom: 30px;
+}
+.FriendItemRow{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.FriendItemRow img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.friendsRow{
+    display: flex;
+    justify-content: space-between;
 }

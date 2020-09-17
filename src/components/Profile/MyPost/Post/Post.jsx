@@ -6,8 +6,8 @@ import dislike from '../../../../img/dislike.png'
 
 const Post = (props) => {
     return (
-        <div>
-            <img className={s.avatar} src={ava}  alt="Аватарка" />
+        <div> 
+            <img className="avatarImg" src={ava}  alt="Аватарка" />
             {props.date} , {props.message};
             <div className={s.appraisal}>
                 <img src={like} alt=""/>
