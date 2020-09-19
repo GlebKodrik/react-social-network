@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './Post.module.css'
-import ava from '../../../../img/ava.jpg'
-import like from '../../../../img/like.png'
-import dislike from '../../../../img/dislike.png'
+import ava from '@img/ava.jpg'
+import like from '@img/like.png'
+import dislike from '@img/dislike.png'
 
 const Post = (props) => {
     return (

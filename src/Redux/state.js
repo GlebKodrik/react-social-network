@@ -1,3 +1,4 @@
+
 let state ={
     messagePage: {
         dialogsData : [
@@ -33,5 +34,17 @@ let state ={
         ]
     }
 };
+
+export let addElement = (newElement) =>{
+    let newElementItem = {
+        id: "5",
+        message: newElement,
+        likeCout: 80,
+        dislikeCout: 1,
+        date: "Нету ее"
+
+    }
+    state.profilePage.postsData.push(newElementItem);
+}
 
 export default state;

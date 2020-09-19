@@ -17,9 +17,9 @@ const App = (props) => {
          <Header />
          <Navbar friendsData={props.state.sidebar.friendsData}/>
          <div className="app-wrapper-content">
-           <Route exact path="/" render={() => <Profile postsData={props.state.profilePage.postsData}/>}/>
+           <Route exact path="/" render={() => <Profile postsData={props.state.profilePage.postsData}/>} addElement={props.state.addElement}/>
            <Route path="/dialogs" render={() => <Dialogs dialogsData={props.state.messagePage.dialogsData} messageData={props.state.messagePage.messageData} dialogsImg={props.state.messagePage.dialogsImg}/>}/>
-           <Route path="/profile" render={() => <Profile postsData={props.state.profilePage.postsData}/>}/>
+           <Route path="/profile" render={() => <Profile postsData={props.state.profilePage.postsData}/>} addElement={props.state.addElement}/>
            <Route path="/news" render={() => <News />}/>
            <Route path="/musics" render={() => <Musics />}/>
            <Route path="/settings" render={() => <Settings />}/>

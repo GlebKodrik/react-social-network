@@ -4,14 +4,14 @@ import Post from './Post/Post';
 
 
 const MyPost = (props) => {
-
+debugger;
     let postsArray = 
         props.postsData.map(p => <Post likeCout={p.likeCout} dislikeCout={p.dislikeCout} date={p.date} message={p.message}/>);
     let newPostElement = React.createRef();
     
     let addPost = () =>{
         let text = newPostElement.current.value;
-        alert(text);
+        props.addElement(text);
     }
 
     return (
