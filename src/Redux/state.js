@@ -1,4 +1,4 @@
-
+import {rerenderTree} from './../render.js'
 let state ={
     messagePage: {
         dialogsData : [
@@ -11,7 +11,7 @@ let state ={
         ],
         dialogsImg : [
             {id: "1" , name :"../img/message.1.jpg"},
-            {id: "2" , name :"../img/message.2.jpg"},
+            {id: "2" , name :"../img/message.2.jpg"}, 
             {id: "2" , name :"../img/message.3.jpg"}
         ],
         messageData : [
@@ -21,10 +21,11 @@ let state ={
         ]
     },
     profilePage: {
-    postsData : [
-        {likeCout:"57", dislikeCout:"12", date:"31.08.2020", message:"Наконец я начал учить реакт"},
-        {likeCout:"10432", dislikeCout:"1", date:"22.06.2000", message:"Толя кусок тупого дерьма"}
-        ]
+        postsData : [
+            {likeCout:"57", dislikeCout:"12", date:"31.08.2020", message:"Наконец я начал учить реакт"},
+            {likeCout:"10432", dislikeCout:"1", date:"22.06.2000", message:"Толя кусок тупого дерьма"}
+            ],
+        newPostText: ""
     },
     sidebar: {
         friendsData: [
@@ -35,16 +36,21 @@ let state ={
     }
 };
 
-export let addElement = (newElement) =>{
+export let addElement = () =>{
     let newElementItem = {
         id: "5",
-        message: newElement,
+        message: state.profilePage.newPostText,
         likeCout: 80,
         dislikeCout: 1,
         date: "Нету ее"
-
     }
     state.profilePage.postsData.push(newElementItem);
+    state.profilePage.newPostText = "";
+    rerenderTree(state);
+}
+export let changeNewPost = (newText) => {
+    state.profilePage.newPostText = newText;
+    rerenderTree(state);
 }
 
 export default state;
