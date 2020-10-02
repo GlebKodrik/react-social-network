@@ -7,7 +7,7 @@ import Dialogs from './components/Dialogs/Dialogs';
 import News from './components/News/News';
 import Musics from './components/Musics/Musics';
 import Settings from './components/Settings/Settings';
-import { Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 
 const App = (props) => {

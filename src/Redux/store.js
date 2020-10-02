@@ -1,7 +1,6 @@
-const CHANGE_NEW_POST = 'CHANGE-NEW-POST';
-const ADD_POST = 'ADD-POST';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_NEW_MESSAGE = 'CHANGE-NEW-MESSAGE';
+import profileReducer from './profile-reducer';
+import dialogsReducer from "./dialogs-reducer";
+
 export let store = {
     _callSubscriber() {},
     _state:{
@@ -43,49 +42,8 @@ export let store = {
         return this._state;
     },
     dispatch(action){
-        debugger;
-        if(action.type === ADD_POST){
-            if (this._state.messagePage.newMessageText === ''){
-                alert("Введите сообщение");
-            }
-            else{
-                let newElementItem = {
-                    id: "5",
-                    message: this._state.profilePage.newPostText,
-                    likeCout: "80",
-                    dislikeCout: "1",
-                    date: "Нету ее"
-                }
-                this._state.profilePage.postsData.push(newElementItem);
-                this._state.profilePage.newPostText = "";
-                this._callSubscriber(this._state);
-            }
-        } else if(action.type === CHANGE_NEW_POST) {
-            this._state.profilePage.newPostText = action.newText;
+            this._state.profilePage = profileReducer(this._state.profilePage,action);
+            this._state.messagePage = dialogsReducer(this._state.messagePage,action);
             this._callSubscriber(this._state);
-        } else if(action.type === ADD_MESSAGE){
-            if (this._state.messagePage.newMessageText === ''){
-                alert("Введите сообщение");
-            }
-            else{
-                let newElementMessage = {
-                    id: '1',
-                    name: this._state.messagePage.newMessageText,
-                }
-                this._state.messagePage.messageData.push(newElementMessage);
-                this._state.messagePage.newMessageText = "";
-                this._callSubscriber(this._state);
-            }
-        } else if(action.type === CHANGE_NEW_MESSAGE){
-            this._state.messagePage.newMessageText = action.newText;
-            this._callSubscriber(this._state);
-        }
     },
 }
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const onPostChangeActionCreator = (text) => ({type: CHANGE_NEW_POST , newText: text});
-
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
-export const changeNewMessageActionCreator = (text) => ({type: CHANGE_NEW_MESSAGE , newText: text});
-
-window.store = store;
