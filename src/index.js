@@ -4,7 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import {store} from "./Redux/store";
+import store from "./Redux/redux-store";
 
 let rerenderTree = (state) => {
   ReactDOM.render(
@@ -18,6 +18,8 @@ let rerenderTree = (state) => {
 }
 
 rerenderTree(store.getState());
-store.subscriber(rerenderTree);
+store.subscribe(() => {
+  rerenderTree(store.getState());
+});
 
 serviceWorker.unregister(); 

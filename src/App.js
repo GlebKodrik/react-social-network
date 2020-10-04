@@ -15,7 +15,7 @@ const App = (props) => {
       <div className="app-wrapper">
          <Header />
          <Navbar 
-         friendsData={props.state.sidebar.friendsData}
+         sidebar={props.state.sidebar}
          />
          <div className="app-wrapper-content">
            <Route exact path="/" render={() => <Profile 
