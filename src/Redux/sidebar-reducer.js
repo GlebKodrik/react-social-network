@@ -4,7 +4,6 @@ let initialState = {
             {id:"2", name:"Вася" , src: "https://klike.net/uploads/posts/2019-03/1551511784_4.jpg"},
             {id:"3", name:"Ваня" , src: "https://cs16planet.ru/steam-avatars/images/avatar1833.jpg"}
         ]
-    
 }
 
 const sidebarReducer = (state = initialState ,action) =>{

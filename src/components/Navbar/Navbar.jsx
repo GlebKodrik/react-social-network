@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import Friends from './Friends/Friends';
 
 const Navbar = (props) => {
+    debugger
+    let state = props.store.getState().sidebar;
     return (
     <div className={s.sidebar}>
         <nav className={s.nav}>
@@ -16,7 +18,7 @@ const Navbar = (props) => {
             <div className={s.item}><NavLink activeClassName={s.activeLink} to="/settings">Настройки</NavLink></div>
         </nav>
         <div>
-            <div><Friends friendsData={props.sidebar.friendsData}/></div>
+            <div><Friends sidebar={state}/></div>
         </div>
     </div>
     )
