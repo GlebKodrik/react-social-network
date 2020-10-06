@@ -3,7 +3,6 @@ import s from './../Navbar.module.css';
 import FriendItem from './FriensItem/FriendItem';
 
 const Friends = (props) => {
-    debugger
     let friendsArray = props.sidebar.friendsData.map(el => <FriendItem name = {el.name} id={el.id} src={el.src}/>);
 
     return (
