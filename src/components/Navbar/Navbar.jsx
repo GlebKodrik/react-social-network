@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom';
 import Friends from './Friends/Friends';
 
 const Navbar = (props) => {
-    debugger
     return (
     <div className={s.sidebar}>
         <nav className={s.nav}>
             <div className={s.item}><NavLink activeClassName={s.activeLink} to="/profile">Профиль</NavLink></div>
+            <div className={s.item}><NavLink activeClassName={s.activeLink} to="/users">Друзья</NavLink></div>
             <div className={s.item}><NavLink activeClassName={s.activeLink} to="/dialogs">Сообщения</NavLink></div>
             <div className={s.item}><NavLink activeClassName={s.activeLink} to="/news">Новости</NavLink></div>
             <div className={`${s.item} ${s.item}`}>

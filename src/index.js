@@ -5,22 +5,15 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import './index.css';
 import store from "./Redux/redux-store";
-import StoreContext from './StoreContext';
+import {Provider} from "react-redux";
 
-let rerenderTree = (state) => {
-    ReactDOM.render(
-        <BrowserRouter>
-        <StoreContext.Provider value={store}>
-            <App />
-            </StoreContext.Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-}
-
-rerenderTree(store.getState());
-store.subscribe(() => {
-    rerenderTree(store.getState());
-});
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
 
 serviceWorker.unregister(); 
