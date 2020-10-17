@@ -1,23 +1,34 @@
 import React from 'react';
 import s from './Users.module.css'
-import * as axios from "axios";
 import noImage from '@img/noImage.jpg';
+import { NavLink } from 'react-router-dom';
 
 export const Users = (props) => {
-    let getUsers = () => {
-        if (props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
+
+    let pageCount = Math.ceil(props.totalUserCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= 10; i++) {
+        pages.push(i);
     }
     return <div>
-        <button onClick={getUsers}>getUser</button>
+        <div className={s.numberPage}>
+            {
+                pages.map(p => {
+                    return (
+                        <span className={props.currentPage === p ? s.currentNumber : s.noCurrentNumber}
+                              onClick={() => props.onPageChanged(p)}>{p}</span>
+                    )
+                })
+            }
+        </div>
         {
             props.users.map(u => <div key={u.id} className={s.usersRow}>
                 <div className={s.usersFollow}>
                     <div>
-                        <img src={u.photos.small != null ? u.photo.small : noImage} alt="Картинка" className={s.usersPhoto}/>
+                        <NavLink to={'/profile/'+ u.id}>
+                            <img src={u.photos.small != null ? u.photos.small : noImage} alt="Картинка"
+                                 className={s.usersPhoto}/>
+                        </NavLink>
                     </div>
                     {u.followed ? <button onClick={() => props.unfollow(u.id)}>Отписаться</button> :
                         <button onClick={() => props.follow(u.id)}>Подписаться</button>}

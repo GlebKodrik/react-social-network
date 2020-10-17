@@ -5,7 +5,7 @@ import MyPostContainer from "./MyPost/MyPostContainer";
 
 const Profile = (props) => {
     return <div className={s.content}>
-        <ProfileInfo />
+        <ProfileInfo profile={props.profile}/>
         <MyPostContainer />
     </div>
 }

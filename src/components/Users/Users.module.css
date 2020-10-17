@@ -35,3 +35,12 @@
 .userslocation{
     margin-bottom: 10px;
 }
+.currentNumber{
+    font-weight: bold;
+}
+.noCurrentNumber{
+    color: #CC0000;
+}
+.numberPage{
+    cursor: pointer;
+}
