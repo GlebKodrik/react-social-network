@@ -13,5 +13,36 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(
             response => response.data
         )
+    },
+    follow(userId){
+        return instance.post(`follow/${userId}`,{})
+    },
+    unfollow(userId){
+        return instance.delete(`follow/${userId}`)
+    },
+
+}
+
+export const authAPI = {
+    me(){
+        return instance.get(`auth/me`);
+    },
+    logIn(email,password,rememberMe=false){
+        return instance.post(`auth/login`,{email,password,rememberMe});
+    },
+    logout(){
+        return instance.delete(`auth/login`);
     }
+}
+
+export const profileAPI = {
+    getUsersProfile(userId){
+        return instance.get(`profile/` + userId);
+    },
+    setStatus(status){
+        return instance.put(`profile/status/`, {status});
+    },
+    getStatus(userId){
+        return instance.get(`profile/status/` + userId);
+    },
 }

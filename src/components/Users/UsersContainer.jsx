@@ -1,35 +1,24 @@
 import {connect} from 'react-redux';
 import {
-    follow,
     setCurrentPage,
-    setUsers,
-    setUsersTotalCount, toggleFollowingInProgress,
-    toggleIsFetching,
-    unfollow
+    getUsers,
+    unfollowThunk,
+    followThunk,
 } from '../../Redux/users-reducer';
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
+import {withRedirect} from "../hoc/AuthRedirect";
+import {compose} from "redux";
+
 
 export class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(this.props.currentPage,this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setUsersTotalCount(data.totalCount);
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (number) => {
-        this.props.setCurrentPage(number);
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(number,this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setUsersTotalCount(data.totalCount);
-        })
+        this.props.getUsers(number, this.props.pageSize)
     }
 
     render() {
@@ -75,12 +64,13 @@ let mapStateToProps = (state) => {
 }*/
 //в обьекте делаем ссылки на AC
 //мы закидываем в обьект AC
-export default connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
-    setCurrentPage,
-    setUsersTotalCount,
-    toggleIsFetching,
-    toggleFollowingInProgress,
-})(UsersContainer);
+
+export default compose(
+    connect(mapStateToProps, {
+        setCurrentPage,
+        getUsers,
+        unfollowThunk,
+        followThunk,
+    }),
+    withRedirect
+)(UsersContainer);

@@ -1,27 +1,41 @@
 import React from 'react';
 import s from './MyPost.module.css';
 import Post from './Post/Post';
+import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../Healpers/validator/validators";
+import {Textarea} from "../../common/FormsControls/FormsControl";
+
+const maxLenght = maxLengthCreator(150);
+const PostForm = (props) => {
+    return (
+        <form action="" onSubmit={props.handleSubmit}>
+            <Field placeholder={"Коментарий..."}
+                   name={"newPostMessage"}
+                   component={Textarea}
+                   validate={[required,maxLenght]}
+            />
+            <div>
+                <button>Добавить пост</button>
+            </div>
+        </form>
+    )
+}
+const PostFormReduxForm = reduxForm({
+    form: 'postMessage'
+})(PostForm);
 
 const MyPost = (props) => {
     let postsArray =
         props.postsData.map(p => <Post key={p.id} likeCout={p.likeCout} dislikeCout={p.dislikeCout}
                                        date={p.date}
                                        message={p.message}/>);
-    let newPostElement = React.createRef();
-    let addPost = () => {
-        props.addPostCreator();
-    }
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.onPostChangeCreator(text);
+    const addNewPost = (value) => {
+        props.addPostCreator(value.newPostMessage);
     }
     return (
         <div className={s.posts}>
             <h3>My post</h3>
-            <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
-            <div>
-                <button onClick={addPost}>Добавить пост</button>
-            </div>
+            <PostFormReduxForm onSubmit={addNewPost}/>
             <div>
                 {postsArray}
             </div>

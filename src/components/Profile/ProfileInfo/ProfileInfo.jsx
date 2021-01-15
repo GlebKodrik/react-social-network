@@ -1,7 +1,8 @@
 import React from 'react';
-import theme from '@img/theme.jpg';
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileStatus} from './ProfileStatus'
+import noAvatar from '@img/noavatar.png';
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -9,12 +10,13 @@ const ProfileInfo = (props) => {
     }
     return <div>
         <div>
-            <img src={theme} alt="Тема"/>
+            {/*<img src={theme} alt="Тема"/>*/}
+            <ProfileStatus status={props.status} setStatus={props.setStatus}/>
         </div>
         <div className={s.description}>
             <div>
                 <div>
-                    <img src={props.profile.photos.small} alt=""/>
+                    <img src={!props.profile.photos.small ? noAvatar : props.profile.photos.small} alt=""/>
                 </div>
                 <div>
                     <div>
@@ -33,7 +35,8 @@ const ProfileInfo = (props) => {
                     </div>
                     <div>
                         {
-                            !props.profile.lookingForAJob ? <div>Не работаю</div>: <div>{props.profile.lookingForAJobDescription}</div>
+                            !props.profile.lookingForAJob ? <div>Не работаю</div> :
+                                <div>{props.profile.lookingForAJobDescription}</div>
 
                         }
                     </div>

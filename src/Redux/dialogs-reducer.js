@@ -1,6 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_NEW_MESSAGE = 'CHANGE-NEW-MESSAGE';
-
 let initialState = {
     dialogsData: [
         {id: "1", name: "Глеб", src: "https://archilab.online/images/1/123.jpg"},
@@ -23,34 +21,22 @@ let initialState = {
         {id: "2", name: "Ну ты можешь "},
         {id: "3", name: "Толя мне на тебя"}
     ],
-    newMessageText: "",
 
 }
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE: {
-            let newElementMessage = {
-                id: '1',
-                name: state.newMessageText,
-            }
+            let body = action.newMessage;
             return {
                 ...state,
-                messageData: [...state.messageData, newElementMessage],
-                newMessageText: "",
+                messageData: [...state.messageData, {id: 6 , name: body }],
             };
-        }
-        case CHANGE_NEW_MESSAGE: {
-            return {
-                ...state,
-                newMessageText: action.newText
-            };//спред
         }
         default:
             return state;
     }
 }
 
-export const addMessageCreator = () => ({type: ADD_MESSAGE});
-export const changeNewMessageCreator = (text) => ({type: CHANGE_NEW_MESSAGE, newText: text});
+export const addMessageCreator = (newMessage) => ({type: ADD_MESSAGE , newMessage});
 export default dialogsReducer;

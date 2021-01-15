@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -78,5 +80,38 @@ export const setCurrentPage = (currentNumber) => ({type: SET_CURRENT_PAGE, curre
 export const setUsersTotalCount = (totalCount) => ({type: SET_USERS_TOTAL_COUNT, totalCount});
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleFollowingInProgress = (isFetching,userId) => ({type: TOGGLE_FOLLOWING_IN_PROGRESS,userId, isFetching});
+
+export const getUsers = (currentPage,pageSize) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage,pageSize).then(data => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setUsersTotalCount(data.totalCount));
+        });
+    }
+};
+export const followThunk = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true,userId));
+        usersAPI.follow(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(follow(userId));
+            }
+            dispatch(toggleFollowingInProgress(false,userId));
+        });
+    }
+};
+export const unfollowThunk = (userId) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingInProgress(true,userId ));
+        usersAPI.unfollow(userId).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(unfollow(userId));
+            }
+            dispatch(toggleFollowingInProgress(false,userId));
+        });
+    };
+}
 
 export default usersReducer;
