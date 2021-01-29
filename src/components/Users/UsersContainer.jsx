@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {
     setCurrentPage,
-    getUsers,
+    requestUsers,
     unfollowThunk,
     followThunk,
 } from '../../Redux/users-reducer';
@@ -10,6 +10,14 @@ import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
 import {withRedirect} from "../hoc/AuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUserCount,
+    getUsers
+} from "../../Redux/users-selector";
 
 
 export class UsersContainer extends React.Component {
@@ -29,46 +37,34 @@ export class UsersContainer extends React.Component {
     }
 }
 
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         totalUserCount: state.usersPage.totalUserCount,
+//         pageSize: state.usersPage.pageSize,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//     }
+// }
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        totalUserCount: state.usersPage.totalUserCount,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsers(state),
+        totalUserCount: getTotalUserCount(state),
+        pageSize: getPageSize(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 
-/*let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (current) => {
-            dispatch(setCurrentPageAC(current))
-        },
-        setUsersTotalCount: (totalCount) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-    }
-}*/
 //в обьекте делаем ссылки на AC
 //мы закидываем в обьект AC
 
 export default compose(
     connect(mapStateToProps, {
         setCurrentPage,
-        getUsers,
+        getUsers: requestUsers,
         unfollowThunk,
         followThunk,
     }),
