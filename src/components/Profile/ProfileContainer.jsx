@@ -29,6 +29,7 @@ class ProfileContainer extends React.Component {
 //еонтейнерная компонента снабжает нашу компоненту
 //грубо говоря коннектим призентационную компоненту к данным из stora
 
+//mapStateToProps создает новый обьект чтобы сравнить потом со старым
 let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,

@@ -36,10 +36,14 @@
     margin-bottom: 10px;
 }
 .currentNumber{
-    font-weight: bold;
+    border-bottom: 2px solid black;
+    margin: 0 5px;
 }
 .noCurrentNumber{
-    color: #CC0000;
+    padding: 10px;
+    margin: 0 5px;
+    border: 1px solid black;
+    color: gray;
 }
 .numberPage{
     cursor: pointer;

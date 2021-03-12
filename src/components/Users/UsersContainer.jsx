@@ -5,7 +5,7 @@ import {
     unfollowThunk,
     followThunk,
 } from '../../Redux/users-reducer';
-import React from 'react';
+import React, {useState} from 'react';
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
 import {withRedirect} from "../hoc/AuthRedirect";
@@ -16,9 +16,8 @@ import {
     getIsFetching,
     getPageSize,
     getTotalUserCount,
-    getUsers
+    getUsersSuperSelector
 } from "../../Redux/users-selector";
-
 
 export class UsersContainer extends React.Component {
     componentDidMount() {
@@ -49,7 +48,7 @@ export class UsersContainer extends React.Component {
 // }
 let mapStateToProps = (state) => {
     return {
-        users: getUsers(state),
+        users: getUsersSuperSelector(state),
         totalUserCount: getTotalUserCount(state),
         pageSize: getPageSize(state),
         currentPage: getCurrentPage(state),

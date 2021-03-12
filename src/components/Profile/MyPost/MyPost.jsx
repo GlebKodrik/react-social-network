@@ -25,8 +25,9 @@ const PostFormReduxForm = reduxForm({
 })(PostForm);
 
 const MyPost = (props) => {
+
     let postsArray =
-        props.postsData.map(p => <Post key={p.id} likeCout={p.likeCout} dislikeCout={p.dislikeCout}
+        [...props.postsData].reverse().map(p => <Post key={p.id} likeCout={p.likeCout} dislikeCout={p.dislikeCout}
                                        date={p.date}
                                        message={p.message}/>);
     const addNewPost = (value) => {
@@ -42,5 +43,4 @@ const MyPost = (props) => {
         </div>
     )
 }
-
 export default MyPost;

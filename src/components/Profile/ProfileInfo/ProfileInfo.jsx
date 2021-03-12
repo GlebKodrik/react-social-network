@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
-import {ProfileStatus} from './ProfileStatus'
 import noAvatar from '@img/noavatar.png';
+import {ProfileStatusHooks} from "./ProfileStatusHooks";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -11,7 +11,7 @@ const ProfileInfo = (props) => {
     return <div>
         <div>
             {/*<img src={theme} alt="Тема"/>*/}
-            <ProfileStatus status={props.status} setStatus={props.setStatus}/>
+            <ProfileStatusHooks status={props.status} setStatus={props.setStatus}/>
         </div>
         <div className={s.description}>
             <div>
