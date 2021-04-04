@@ -1,49 +1,77 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
-import noAvatar from '@img/noavatar.png';
+import noAvatar from '../../../img/noavatar.png';
 import {ProfileStatusHooks} from "./ProfileStatusHooks";
+import ProfileDataForm from "./ProfileDataForm";
+import {useDispatch} from "react-redux";
+import {setStatus} from "../../../Redux/profile-reducer";
 
-const ProfileInfo = (props) => {
-    if (!props.profile) {
+const ProfileInfo = ({status, error, ...props}) => {
+    const [editMode, setEditMode] = useState(false);
+    const dispatch = useDispatch();
+    if (!props.profile || props.isFetching) {
         return <Preloader/>
+    }
+    const onMainPhotoSelected = (e) => {
+        let path = e.target.files[0];
+        if (path) {
+            props.savePhoto(path);
+        }
+    }
+    const onSubmit = (formData) => {
+        props.saveProfile(formData).then(() => {
+            setEditMode(false);
+        });
     }
     return <div>
         <div>
-            {/*<img src={theme} alt="Тема"/>*/}
-            <ProfileStatusHooks status={props.status} setStatus={props.setStatus}/>
+            <ProfileStatusHooks status={status} setStatus={(status) => dispatch(setStatus(status))}
+                                isOwner={props.isOwner} error={error}/>
         </div>
-        <div className={s.description}>
+        <div>
+            <img src={props.profile.photos.large || noAvatar} alt=""/>
+        </div>
+        {props.isOwner && <input type={"file"} onChange={onMainPhotoSelected}/>}
+        {!editMode ?
+            <ProfileData profile={props.profile} isOwner={props.isOwner} changeEditMode={() => {
+                setEditMode(true)
+            }}/>
+            : <ProfileDataForm backProfileData={() => setEditMode(false)} profile={props.profile}
+                               initialValues={props.profile} onSubmit={onSubmit}/>
+        }
+    </div>
+}
+
+const ProfileData = ({profile, ...props}) => {
+    return <div className={s.description}>
+        <div>
+            {props.isOwner && <button onClick={props.changeEditMode}>Изменить профиль</button>}
             <div>
+                <div><span>Ищу работу:</span> {!profile.lookingForAJob ? "Нет" : "Да"}</div>
+                {profile.lookingForAJob &&
                 <div>
-                    <img src={!props.profile.photos.small ? noAvatar : props.profile.photos.small} alt=""/>
+                    <span>Описание работы:</span> {!profile.lookingForAJobDescription ? "Нету описания" : profile.lookingForAJobDescription}
+                </div>
+                }
+                <div>
+                    <span>Имя:</span> {profile.fullName}
                 </div>
                 <div>
-                    <div>
-                        Имя: {props.profile.fullName}
-                    </div>
-                    <div>
-                        Обо мне: {props.profile.aboutMe}
-                    </div>
-                    <div>
-                        Соц. сети :
-                        <span>facebook: {props.profile.contacts.facebook}</span>
-                        <span>vk: {props.profile.contacts.vk}</span>
-                        <span>twitter: {props.profile.contacts.twitter}</span>
-                        <span>instagram: {props.profile.contacts.instagram}</span>
-                        <span>github: {props.profile.contacts.github}</span>
-                    </div>
-                    <div>
-                        {
-                            !props.profile.lookingForAJob ? <div>Не работаю</div> :
-                                <div>{props.profile.lookingForAJobDescription}</div>
-
-                        }
-                    </div>
+                    <span>Обо мне:</span> {!profile.aboutMe ? "информации нет" : profile.aboutMe}
+                </div>
+                <div>
+                    {Object.keys(profile.contacts).map(key => {
+                        return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                    })}
                 </div>
             </div>
         </div>
     </div>
+}
+
+const Contact = ({contactTitle, contactValue}) => {
+    return contactValue && <div>{contactTitle} : {contactValue}</div>
 }
 
 export default ProfileInfo;
