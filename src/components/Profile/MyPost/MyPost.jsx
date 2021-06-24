@@ -27,9 +27,7 @@ const PostFormReduxForm = reduxForm({
 const MyPost = (props) => {
 
     let postsArray =
-        [...props.postsData].reverse().map(p => <Post key={p.id} likeCout={p.likeCout} dislikeCout={p.dislikeCout}
-                                       date={p.date}
-                                       message={p.message}/>);
+        [...props.postsData].reverse().map(p => <Post key={p.id} {...p}/>);
     const addNewPost = (value) => {
         props.addPostCreator(value.newPostMessage);
     }

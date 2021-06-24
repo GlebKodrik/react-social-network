@@ -9,40 +9,58 @@ const instance = axios.create({
 });
 //обьект а в нем методы
 export const usersAPI = {
-    getUsers(currentPage=1,pageSize=1){
+    getUsers(currentPage = 1, pageSize = 1) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(
             response => response.data
         )
     },
-    follow(userId){
-        return instance.post(`follow/${userId}`,{})
+    follow(userId) {
+        return instance.post(`follow/${userId}`, {})
     },
-    unfollow(userId){
+    unfollow(userId) {
         return instance.delete(`follow/${userId}`)
     },
 
 }
 
 export const authAPI = {
-    me(){
+    me() {
         return instance.get(`auth/me`);
     },
-    logIn(email,password,rememberMe=false){
-        return instance.post(`auth/login`,{email,password,rememberMe});
+    logIn(email, password, rememberMe, captcha) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha});
     },
-    logout(){
+    logout() {
         return instance.delete(`auth/login`);
     }
 }
 
+export const capthaAPI = {
+    getCaptchaApi() {
+        return instance.get(`/security/get-captcha-url`);
+    }
+}
+
 export const profileAPI = {
-    getUsersProfile(userId){
+    getUsersProfile(userId) {
         return instance.get(`profile/` + userId);
     },
-    setStatus(status){
+    setStatus(status) {
         return instance.put(`profile/status/`, {status});
     },
-    getStatus(userId){
+    getStatus(userId) {
         return instance.get(`profile/status/` + userId);
     },
+    savePhoto(photoFile) {
+        let formData = new FormData();
+        formData.append("image", photoFile);
+        return instance.put(`profile/photo/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    saveProfile(profile) {
+        return instance.put(`profile/`, profile);
+    }
 }

@@ -11,6 +11,7 @@ export const Paginator = ({currentPage,portionSize = 10,...props}) => {
     let [portionNumber , setPortionNumber] = useState(1);
     let leftportionPageNumber = (portionNumber - 1) * portionSize +1;
     let rightPortionPageNumber = portionNumber * portionSize;
+
     return <div className={s.numberPage}>
         { portionNumber > 1 &&
             <button onClick={() => setPortionNumber(portionNumber - 1)}> Pref</button>

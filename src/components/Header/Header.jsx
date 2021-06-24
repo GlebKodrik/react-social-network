@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '@img/google.png';
+import logo from '../../img/google.png';
 import h from './Header.module.css';
 import {NavLink} from 'react-router-dom';
 
@@ -14,7 +14,7 @@ const Header = (props) => {
             {props.isAuth ? <div>{props.login}
                 <button onClick={props.logout}>Выйти</button>
             </div> : <NavLink
-                to='/login'>Войти</NavLink>}
+                to='/'>Войти</NavLink>}
         </div>
     </header>
 }

@@ -17,9 +17,9 @@ let initialState = {
         }
     ],
     messageData: [
-        {id: "1", name: "Првиет меня зовут Глеб"},
-        {id: "2", name: "Ну ты можешь "},
-        {id: "3", name: "Толя мне на тебя"}
+        {id: "1", name: {newMessage: "Првиет меня зовут Глеб"}},
+        {id: "2", name:  {newMessage: "Ну ты можешь"}},
+        {id: "3", name:  {newMessage: "Толя мне на тебя"}}
     ],
 
 }
@@ -27,10 +27,9 @@ let initialState = {
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE: {
-            let body = action.newMessage;
             return {
                 ...state,
-                messageData: [...state.messageData, {id: 6 , name: body }],
+                messageData: [...state.messageData, {id: "6" , name: action.text }],
             };
         }
         default:
@@ -38,5 +37,6 @@ const dialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const addMessageCreator = (newMessage) => ({type: ADD_MESSAGE , newMessage});
+export const addMessageCreator = (text) => ({type: ADD_MESSAGE , text});
+
 export default dialogsReducer;

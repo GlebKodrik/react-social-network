@@ -1,15 +1,8 @@
-import {connect} from 'react-redux';
-import {
-    setCurrentPage,
-    requestUsers,
-    unfollowThunk,
-    followThunk,
-} from '../../Redux/users-reducer';
-import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {requestUsers,} from '../../Redux/users-reducer';
+import React, {useEffect} from 'react';
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
-import {withRedirect} from "../hoc/AuthRedirect";
-import {compose} from "redux";
 import {
     getCurrentPage,
     getFollowingInProgress,
@@ -19,53 +12,35 @@ import {
     getUsersSuperSelector
 } from "../../Redux/users-selector";
 
-export class UsersContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+export const UsersContainer = () => {
+    const dispatch = useDispatch();
+    const users = useSelector(getUsersSuperSelector);
+    const totalUserCount = useSelector(getTotalUserCount);
+    const pageSize = useSelector(getPageSize);
+    const currentPage = useSelector(getCurrentPage);
+    const isFetching = useSelector(getIsFetching);
+    const followingInProgress = useSelector(getFollowingInProgress);
+
+    useEffect(() => {
+        dispatch(requestUsers(currentPage, pageSize))
+    }, [])
+
+    const onPageChanged = (number) => {
+        dispatch(requestUsers(number, pageSize));
     }
 
-    onPageChanged = (number) => {
-        this.props.getUsers(number, this.props.pageSize)
-    }
 
-    render() {
-        return <>
-            {this.props.isFetching ? <Preloader/> : null}
-            <Users {...this.props} onPageChanged={this.onPageChanged}/>
-        </>
-    }
+    return <>
+        {isFetching ? <Preloader/> : null}
+        <Users {...{
+            users,
+            totalUserCount,
+            isFetching,
+            followingInProgress,
+            currentPage,
+            pageSize
+        }} onPageChanged={onPageChanged}/>
+    </>
+
 }
 
-// let mapStateToProps = (state) => {
-//     return {
-//         users: state.usersPage.users,
-//         totalUserCount: state.usersPage.totalUserCount,
-//         pageSize: state.usersPage.pageSize,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress,
-//     }
-// }
-let mapStateToProps = (state) => {
-    return {
-        users: getUsersSuperSelector(state),
-        totalUserCount: getTotalUserCount(state),
-        pageSize: getPageSize(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state),
-    }
-}
-
-//в обьекте делаем ссылки на AC
-//мы закидываем в обьект AC
-
-export default compose(
-    connect(mapStateToProps, {
-        setCurrentPage,
-        getUsers: requestUsers,
-        unfollowThunk,
-        followThunk,
-    }),
-    withRedirect
-)(UsersContainer);

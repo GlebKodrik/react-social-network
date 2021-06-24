@@ -1,68 +1,47 @@
-import React, {useState} from 'react';
-import s from './ProfileInfo.module.css';
-import {Preloader} from "../../common/Preloader/Preloader";
-import noAvatar from '../../../img/noavatar.png';
-import {ProfileStatusHooks} from "./ProfileStatusHooks";
+import React from 'react';
+import {Input, Textarea} from "../../common/FormsControls/FormsControl";
+import {Field, reduxForm} from "redux-form";
+import s from "../../common/FormsControls/FormsControl.module.css";
 
-const ProfileInfo = ({setStatus, status, ...props}) => {
-    const [editMode, setEditMode] = useState(false);
-    if (!props.profile) {
-        return <Preloader/>
-    }
-    const onMainPhotoSelected = (e) => {
-        let path = e.target.files[0];
-        if (path) {
-            props.savePhoto(path);
-        }
-    }
-    return <div>
-        <div>
-            {/*<img src={theme} alt="Тема"/>*/}
-            <ProfileStatusHooks status={status} setStatus={setStatus} isOwner={props.isOwner}/>
-        </div>
-        <div>
-            {props.isFetching ? <Preloader/> : <img src={props.profile.photos.large || noAvatar} alt=""/>}
-        </div>
-        {props.isOwner && <input type={"file"} onChange={props.onMainPhotoSelected}/>}
-        {!editMode ?
-            <ProfileData profile={props.profile} onMainPhotoSelected={onMainPhotoSelected} changeEditMode={() => {setEditMode(true)}}/>
-                      : <ProfileDataForm />
-        }
-    </div>
-}
-
-const ProfileData = ({profile, ...props}) => {
-    return <div className={s.description}>
-        <div>
-            <button onClick={props.changeEditMode}>Изменить профиль</button>
+const ProfileDataForm = ({isFetching, profile, error, ...props}) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            {error && <div className={s.formSummaryError}>
+                {error}</div>}
             <div>
-                <div><span>Ищу работу:</span> {!profile.lookingForAJob ? "Нет" : "Да"}</div>
-                {profile.lookingForAJob &&
-                <div><span>Описание работы:</span> {!profile.lookingForAJobDescription && "Нету описания"}</div>
-                }
-                <div>
-                    <span>Имя:</span> {profile.fullName}
+                <div><span>Ищу работу:</span>
+                    <Field type={"checkbox"} name={"lookingForAJob"} component={Input}/>
+                </div>
+
+                <div><span>Описание работы:</span> <Field type={"textarea"} name={"lookingForAJobDescription"}
+                                                          placeholder={"Мои профессиональные скилы..."}
+                                                          component={Textarea}/>
                 </div>
                 <div>
-                    <span>Обо мне:</span> {!profile.aboutMe && "информации нет"}
+                    <span>Имя:</span>
+                    <Field type={"input"} name={"fullName"} placeholder={"Никнейм..."} component={Input}/>
+                </div>
+                <div>
+                    <span>Обо мне:</span>
+                    <Field type={"textarea"} name={"aboutMe"} placeholder={"Описание..."} component={Textarea}/>
                 </div>
                 <div>
                     {Object.keys(profile.contacts).map(key => {
-                        return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key]}/>
+                        return <div key={key}>
+                            <b>{key}:</b> {<Field type={"input"} name={"contacts." + key.toString()} placeholder={key}
+                                                  component={Input}/>}
+                        </div>
                     })}
                 </div>
             </div>
-        </div>
-    </div>
-}
-const ProfileDataForm = ({isFetching, profile, ...props}) => {
-    return <div>
-        Forma
-    </div>
+            <button>Сохранить изминения</button>
+            <button onClick={props.backProfileData}>Назад</button>
+        </form>
+    )
 }
 
-const Contact = ({contactTitle, contactValue}) => {
-    return contactValue && <div>{contactTitle} : {contactValue}</div>
-}
+const ProfileDataReduxForm = reduxForm({
+    form: 'edit-profile'
+})(ProfileDataForm);
 
-export default ProfileInfo;
+export default ProfileDataReduxForm

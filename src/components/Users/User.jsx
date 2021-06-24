@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './Users.module.css'
-import noImage from '@img/noImage.jpg';
+import noImage from '../../img/noImage.jpg';
 import {NavLink} from 'react-router-dom';
 
 const User = ({user, followingInProgress,unfollowThunk,followThunk}) => {

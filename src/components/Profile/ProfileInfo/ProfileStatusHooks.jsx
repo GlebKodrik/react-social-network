@@ -9,26 +9,30 @@ export const ProfileStatusHooks = (props) => {
     const deactivateEditMode = () => {
         setEditMode(false);
         props.setStatus(status);
+        setStatusUse(props.status);
     }
     const onStatusChange = (e) => {
         setStatusUse(e.currentTarget.value);
     }
-    useEffect(()=>{
+    useEffect(() => {
         setStatusUse(props.status);
     }, [props.status])
-    return (
-        <div>
-            {!editmode &&
+    return <div>
+        {props.isOwner ?
             <div>
-                <span onClick={activateEditMode}>Ваш статус: {!props.status ? "-статуса нет-" : props.status}</span>
+                {!editmode &&
+                <div>
+                    <span onClick={activateEditMode}>Ваш статус: {!props.status ? "-статуса нет-" : props.status}</span>
+                </div>
+                }
+                {editmode &&
+                <div>
+                    <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status}/>
+                </div>
+                }
             </div>
-            }
-            {editmode &&
-            <div>
-                <input onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode} value={status}/>
-            </div>
-            }
-        </div>
-    )
+            : <span>Status users: {!props.status ? "-статуса нет-" : props.status}</span>}
+        {props.error && <div className="errors">{props.error}</div>}
+    </div>
 }
 

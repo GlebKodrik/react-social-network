@@ -1,57 +1,53 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import News from './components/News/News';
 import Musics from './components/Musics/Musics';
 import Settings from './components/Settings/Settings';
-import {Route, withRouter} from 'react-router-dom';
-// import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Route, Switch, Redirect} from 'react-router-dom';
 import NavbarContainer from './components/Navbar/NavbarContainer';
-import UsersContainer from "./components/Users/UsersContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {connect} from "react-redux";
-import {compose} from "redux";
+import {useDispatch, useSelector } from "react-redux";
 import {initializeApp} from "./Redux/app-reducer";
 import {Preloader} from "./components/common/Preloader/Preloader";
 import SuspenseWrap from "./components/hoc/SuspenseWrap";
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+import {getInitialized} from "./Redux/app-selectors";
+import {PrivateRouter} from "./components/Router/PrivateRouter";
+// import Dialogs from "./components/Dialogs/Dialogs";
+const Dialogs = React.lazy(() => import('./components/Dialogs'));
 
-class App extends React.Component {
-
-    componentDidMount() {
-        this.props.initializeApp();
+const App = () => {
+    const dispatch = useDispatch();
+    const initialized = useSelector(getInitialized);
+    useEffect(() => {
+        dispatch(initializeApp());
+        // eslint-disable-next-line
+    }, []);
+    //происходит initialized и пока он не про инцелизируется initialized=false и работает крутилка
+    if (!initialized) {
+        return <Preloader/>
     }
-
-    render() {
-        if (!this.props.initialized) {
-            return <Preloader/>
-        }
-        return (
-
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <NavbarContainer/>
-                <div className="app-wrapper-content">
-                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                    <Route path="/dialogs" render={SuspenseWrap(DialogsContainer)}/>
-                    <Route path="/users" render={() => <UsersContainer/>}/>
+    return (
+        <div className="app-wrapper">
+            <HeaderContainer/>
+            <NavbarContainer/>
+            <div className="app-wrapper-content">
+                <Switch>
+                    <Redirect exact from="/" to="/profile"/>
+                    <PrivateRouter path="/profile/:userId?" component={ProfileContainer}/>
+                    <PrivateRouter path="/dialogs" component={SuspenseWrap(Dialogs)}/>
+                    <PrivateRouter path="/users" component={UsersContainer}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/musics" render={() => <Musics/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>
                     <Route path="/login" render={() => <Login/>}/>
-                </div>
+                    <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+                </Switch>
             </div>
-
-        );
-    }
+        </div>
+    );
 }
+export default App;
 
-const mapStateToProps = (state) => {
-    return {
-        initialized: state.app.initialized
-    }
-}
-export default compose(
-    withRouter,
-    connect(mapStateToProps, {initializeApp}))(App)

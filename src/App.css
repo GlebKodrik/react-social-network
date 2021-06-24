@@ -15,3 +15,7 @@
     grid-area: c;
     background-color: white;
 }
+.errors{
+    color: red;
+    font-size: 24px;
+}
