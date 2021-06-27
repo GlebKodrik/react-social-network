@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/MyReactProject/static/css/main.96ca8c54.chunk.css",
-    "main.js": "/MyReactProject/static/js/main.14499d5d.chunk.js",
-    "main.js.map": "/MyReactProject/static/js/main.14499d5d.chunk.js.map",
-    "runtime-main.js": "/MyReactProject/static/js/runtime-main.553f5d8f.js",
-    "runtime-main.js.map": "/MyReactProject/static/js/runtime-main.553f5d8f.js.map",
+    "main.css": "/MyReactProject/static/css/main.78b5549b.chunk.css",
+    "main.js": "/MyReactProject/static/js/main.7a9dcb7c.chunk.js",
+    "main.js.map": "/MyReactProject/static/js/main.7a9dcb7c.chunk.js.map",
+    "runtime-main.js": "/MyReactProject/static/js/runtime-main.f290aea1.js",
+    "runtime-main.js.map": "/MyReactProject/static/js/runtime-main.f290aea1.js.map",
     "static/js/2.ac556017.chunk.js": "/MyReactProject/static/js/2.ac556017.chunk.js",
     "static/js/2.ac556017.chunk.js.map": "/MyReactProject/static/js/2.ac556017.chunk.js.map",
-    "static/css/3.8fb4d531.chunk.css": "/MyReactProject/static/css/3.8fb4d531.chunk.css",
-    "static/js/3.98b12498.chunk.js": "/MyReactProject/static/js/3.98b12498.chunk.js",
-    "static/js/3.98b12498.chunk.js.map": "/MyReactProject/static/js/3.98b12498.chunk.js.map",
+    "static/css/3.6cf28dcf.chunk.css": "/MyReactProject/static/css/3.6cf28dcf.chunk.css",
+    "static/js/3.997eb186.chunk.js": "/MyReactProject/static/js/3.997eb186.chunk.js",
+    "static/js/3.997eb186.chunk.js.map": "/MyReactProject/static/js/3.997eb186.chunk.js.map",
     "index.html": "/MyReactProject/index.html",
-    "static/css/3.8fb4d531.chunk.css.map": "/MyReactProject/static/css/3.8fb4d531.chunk.css.map",
-    "static/css/main.96ca8c54.chunk.css.map": "/MyReactProject/static/css/main.96ca8c54.chunk.css.map",
+    "static/css/3.6cf28dcf.chunk.css.map": "/MyReactProject/static/css/3.6cf28dcf.chunk.css.map",
+    "static/css/main.78b5549b.chunk.css.map": "/MyReactProject/static/css/main.78b5549b.chunk.css.map",
     "static/js/2.ac556017.chunk.js.LICENSE.txt": "/MyReactProject/static/js/2.ac556017.chunk.js.LICENSE.txt",
     "static/media/ava.788ac758.jpg": "/MyReactProject/static/media/ava.788ac758.jpg",
     "static/media/dislike.82f4d603.png": "/MyReactProject/static/media/dislike.82f4d603.png",
@@ -21,9 +21,9 @@
     "static/media/noImage.b7183a8f.jpg": "/MyReactProject/static/media/noImage.b7183a8f.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.553f5d8f.js",
+    "static/js/runtime-main.f290aea1.js",
     "static/js/2.ac556017.chunk.js",
-    "static/css/main.96ca8c54.chunk.css",
-    "static/js/main.14499d5d.chunk.js"
+    "static/css/main.78b5549b.chunk.css",
+    "static/js/main.7a9dcb7c.chunk.js"
   ]
 }
